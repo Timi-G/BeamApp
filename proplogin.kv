@@ -1,0 +1,222 @@
+#: include customwidgets.kv
+#: include baseentry.kv
+#: include savedentry.kv
+
+#LOGIN/SIGNUP/FORGOT PASSWORD_SCREEN
+
+#LOGIN PAGE
+<LoginScreen>:
+    FloatLayout:
+		Label:
+			id: login_screen_lbl
+			text: 'Login'
+			font_size: 30
+			size_hint: (0.8,0.1) 
+			pos_hint: {'right': 0.9, 'y': 0.6}
+
+		
+		GridLayout:
+			id: glayout_userpass
+			cols: 2
+			#pos: (root.width/25, (root.height/2.5))
+			pos_hint: {'x': 0.1, 'y':0.45}
+			size_hint: (0.8,0.1)
+			
+		#Username	
+			Label:
+				id: username_text
+				#canvas.before:
+					#Color: 
+						#rgba: 1,0,0,1
+					#Rectangle:
+						#size: username_text.size
+						#pos: username_text.pos
+				text: 'Username'
+				size_hint_x: 0.3
+		
+			TextInput:
+				id: username
+				multiline: False
+	
+	
+		#Password
+			Label:
+				id: password_text
+				text: 'Password'
+				size_hint_x: 0.3
+		
+			TextInput:
+				id: password
+				multiline: False
+				password: True
+			
+			
+		#Login Button		
+		Button:
+			id: login_button
+			text: 'Login'
+			pos_hint: {'x':0.285, 'y':0.4}
+			size_hint: (0.615, 0.05)
+			on_press: root.manager.parent.base_entry_screen()
+			
+		#Signup/Forgot_password
+		BoxLayout:
+			size_hint: (0.42,0.03)
+			pos_hint: {'x':0.48, 'y': 0.345}
+			#canvas.before:
+				#Color: 
+					#rgba: 1,0,1,1
+				#Rectangle:
+					#size: self.size
+					#pos: self.pos
+			Label:
+				id: signup_loginscreen
+				#canvas.before:
+					#Color: 
+						#rgba: 1,0,1,1
+					#Rectangle:
+						#size: self.size
+						#pos: self.pos
+				text: '[ref= signup]SIGNUP[/ref]'
+				text_size: self.size #root.width/7,  root.height/8
+				markup: True
+				pos_hint: {'x':0, 'y': 0.9}
+				halign: 'right'
+				valign: 'middle'
+				#pos: (root.width/4, 1-root.height/7)
+				size_hint: 0.4, 1
+				#canvas.before:
+					#Color: 
+						#rgba: 1,0,1,1
+					#Rectangle:
+						#size: signup_loginscreen.size
+						#pos: signup_loginscreen.pos
+				#pos_hint: {'right': 1-forgotpassword_loginscreen.width}
+				on_ref_press: root.manager.current = 'signup'
+		
+			Label:
+				id: forgotpassword_loginscreen
+				text: '[ref= forgotpassword]FORGOT PASSWORD?[/ref]'
+				text_size: self.size
+				halign: 'right'
+				valign: 'middle'
+				markup: True
+				#pos: (root.width/3, 1-(root.height/7))
+				size_hint: 0.4, 1
+				pos_hint: {'right':1, 'y': 0.9}
+				#size_hint: (0.3, 0.3)
+				#canvas.before:
+					#Color: 
+						#rgba: 1,0,0,1
+					#Rectangle:
+						#size: self.size
+						#pos: self.pos
+				on_ref_press: root.manager.current = 'forgotpassword'
+			
+		
+		
+#SIGNUP	PAGE
+<SignUpScreen>:
+	FloatLayout:
+		Label:
+			id: signup_screen
+			text: 'SignUp'
+			font_size: 30
+			#pos_hint: {'x': 0.5, 'top': glayout_userpassconf.height}
+			size_hint: (0.8,0.1) 
+			pos_hint: {'right': 0.9, 'y': 0.6}
+			#pos: (0.5, glayout_userpassconf.height)
+
+		GridLayout:
+			id: glayout_userpassconf
+			cols: 2
+			#pos: (root.width/25, (root.height/2.5))
+			pos_hint: {'x': 0.1, 'y': 0.4}
+			size_hint: (0.8,0.15)
+			
+		#Username	
+			Label:
+				id: username_text
+				text: 'Username'
+				size_hint_x: 0.3
+		
+			TextInput:
+				id: username 
+				multiline: False
+	
+	
+		#Password
+			Label:
+				id: newpassword_text
+				text: 'Password'
+				size_hint_x: 0.3
+		
+			TextInput:
+				id: newpassword
+				multiline: False
+				password: True
+			
+		#Password
+			Label:
+				id: confirmpassword_text
+				text: 'Confirm Password'
+				size_hint_x: 0.3
+		
+			TextInput:
+				id: confirmpassword
+				multiline: False
+				password: True
+		
+		Button:
+			id: signup_button
+			text: 'SignUp'
+			#pos: (root.width/4.05, root.height/3)
+			pos_hint: {'x':0.285,'y':0.35}
+			size_hint: (0.615, 0.05)
+		
+		Button:
+			text: 'Back'
+			pos_hint: {'x': 0.45, 'y': 0.1}
+			size_hint: (0.1, 0.05)
+			on_press: root.manager.current = 'login'
+	
+#FORGOTPASSWORD PAGE
+<ForgotPasswordScreen>:
+	FloatLayout:
+		Label:
+			id: forgotpassword_screen
+			text: 'Forgot Password'
+			font_size: 30
+			#pos_hint: {'x': 0.5, 'top': glayout_forgotpassword.height}
+			size_hint: (0.8,0.1) 
+			pos_hint: {'right': 0.9, 'y': 0.6}
+
+		GridLayout:
+			id: glayout_forgotpassword
+			cols: 2
+			#pos: (root.width/25, (root.height/2))
+			pos_hint: {'x': 0.1, 'y': 0.45}
+			size_hint: (0.8,0.05)
+			
+		#Email	
+			Label:
+				id: forgotpasswordemail_text
+				text: 'Email'
+				size_hint_x: 0.3
+		
+			TextInput:
+				id: forgotpasswordemail 
+				multiline: False
+				
+		Button:
+			id: resetpassword_button
+			text: 'Reset Password'
+			#pos: (root.width/4.05, root.height/2.3)
+			pos_hint: {'x':0.285, 'y':0.4}
+			size_hint: (0.615, 0.05)
+				
+		Button:
+			text: 'Back'
+			pos_hint: {'x': 0.45, 'y': 0.1}
+			size_hint: (0.1, 0.05)
+			on_press: root.manager.current = 'login'

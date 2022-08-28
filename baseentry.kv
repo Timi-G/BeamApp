@@ -1,0 +1,330 @@
+<BaseEntryScreen>:
+	BaseEntry:
+		id: base_entry
+		#DATE
+		Label:
+			id: date_text
+			text: 'Date'
+			font_size: 22
+			text_size: self.size
+			size_hint: 0.08, 0.05
+			pos_hint: {'x': 0.2 , 'y': 0.85}
+	
+		DateCheckBoxLabel:
+			id: date_checkboxlabel
+			group: 'date_group'
+			text: 'Use your device date'
+			pos_hint: {'x': 0.56 , 'y': 0.85}
+			size_hint: 0.22,0.06
+			on_active: base_entry.usedevicedate(self,self.active)
+			#pos_hint: {'x': 0.6 , 'y': 0.55}
+			#size_hint: 0.18,0.03
+	
+		EntryDate:	
+			id: date
+			readonly: True
+			text: base_entry.device_date
+			pHint: 0.35, 0.4
+			size_hint: 0.6, 0.05
+			pos_hint: {'center_x': 0.5 , 'y': 0.80}
+		
+	
+		#AMOUNT
+		Label:
+			id: amount_text
+			text: 'Amount'
+			font_size: 22
+			text_size: self.size
+			size_hint: 0.1, 0.05
+			pos_hint: {'x': 0.2 , 'y': 0.70}
+	
+		CustomAccountNumbersTI:
+			id: amount
+			#input_filter: "float"
+			size_hint: 0.6, 0.05
+			pos_hint: {'center_x': 0.5 , 'y': 0.65}
+	
+	
+		#BALANCE
+		Label:
+			id: balance_text
+			text: 'Balance'
+			font_size: 22
+			text_size: self.size
+			size_hint: 0.1, 0.05
+			pos_hint: {'x': 0.2 , 'y': 0.55}
+	
+		BalanceCheckBoxLabel:
+			id: balance_checkboxlabel
+			group: 'balance_group'
+			text: app.bal_reminder_text
+			pos_hint: {'x': 0.56 , 'y': 0.55}
+			font_size: base_entry.bal_reminder_fontsize
+			size_hint: 0.21,0.06
+			on_active: base_entry.handle_balremtypebubble()
+			#pos_hint: {'x': 0.6 , 'y': 0.55}
+			#size_hint: 0.18,0.03
+		
+		CustomAccountNumbersTI:
+			id: balance
+			#input_filter: "float"
+			size_hint: 0.6, 0.05
+			pos_hint: {'center_x': 0.5 , 'y': 0.50}
+
+
+		#COMMENT
+		Label:
+			id: comment_text
+			text: 'Comment (Optional)'
+			font_size: 22
+			text_size: self.size
+			size_hint: 0.25, 0.05
+			pos_hint: {'x': 0.2 , 'y': 0.40}
+	
+		TextInput:
+			id: comment
+			use_bubble: True
+			multiline: True
+			size_hint: 0.6, 0.05
+			pos_hint: {'center_x': 0.5 , 'y': 0.35}
+		
+	
+		#QUANTITY
+		Label:
+			id: quantity_text
+			text: 'Quantity (Optional)'
+			font_size: 22
+			text_size: self.size
+			size_hint: 0.25, 0.05
+			pos_hint: {'x': 0.2 , 'y': 0.25}
+	
+		CustomAccountNumbersTI:
+			id: quantity
+			#input_filter: "float"
+			size_hint: 0.6, 0.05
+			pos_hint: {'center_x': 0.5 , 'y': 0.20}
+		
+		
+		#RECEIVED&SENT
+		ReceivedCheckBoxLabel:
+			id: received_checkboxlabel
+			text: 'Money Received'
+			group: 'category_group'
+			font_size: 22
+			checkbox_color: 1,1,0,1
+			size_hint: 0.28, 0.095
+			#size_hint: 0.25, 0.05
+			pos_hint: {'x': 0.24 , 'y': 0.10}
+
+		
+		SentCheckBoxLabel:
+			id: sent_checkboxlabel
+			text: 'Money Sent'
+			group: 'category_group'
+			font_size: 22
+			checkbox_color: 1,1,0,1
+			size_hint: 0.28, 0.095
+			pos_hint: {'x': 0.56 , 'y': 0.10}
+			#pos_hint: {'x': 0.62 , 'y': 0.10}
+		
+	
+		#CANCELBUTTON
+		Button:
+			id: baseentry_cancelbutton
+			text:'Cancel'
+			size_hint: 0.3, 0.05
+			pos_hint: {'x': 0.2 , 'y': 0.02}
+			on_press: base_entry.cancel_entry()
+
+		#SAVEBUTTON
+		Button:
+			id: baseentry_savebutton
+			text:'Save'
+			size_hint: 0.3, 0.05
+			pos_hint: {'x': 0.5 , 'y': 0.02}
+			on_press: base_entry.save_entry()
+
+	
+#Custom Widget Checkbox & Label Combo
+<CustomCheckBoxLabel>:
+	cols: 2
+	text: ''
+	group: ''
+	checkbox_size_hint_x: 0.2
+	label_size_hint_x: 0.8
+	size_hint:
+	font_size: 15
+	checkbox_color: 1,1,1,1
+	label_color: 1,1,1,1
+	active: checkbx.active
+	#checkbox_size_hint_x: 0.3
+	#label_size_hint_x: 0.7
+	#size_hint: 0.11, 0.03
+	#pos_hint: {'x': 0.56 , 'y': 0.55}	
+	on_press: checkbx._do_press()
+	CheckBox:
+		id: checkbx
+		size_hint_x: root.checkbox_size_hint_x
+		group: root.group
+		color: root.checkbox_color
+	Label:
+		color: root.label_color
+		text_size: self.size
+		font_size: root.font_size
+		text: root.text
+		size: self.texture_size
+		size_hint_x: root.label_size_hint_x
+		#halign: 'right'
+		valign: 'middle'
+		
+<BalReminderModalview>:
+	size_hint: 0.4,0.4
+	pos_hint: {'center_x': 0.5, 'y': 0.4}
+	id: balremmod
+	#border_color: 0,0,0,1
+	border_width: 0.1
+	FloatLayout:
+		id: balremmodFL
+		time_spin_text: timespinner.text
+		size_hint: 0.95, 0.95
+		pos_hint: {'left': 0 ,'top': 0}
+		#canvas.before:
+			#Color: 
+				#rgba: 0,0,1,0.5
+			#Rectangle:
+				#size: self.size
+				#pos: self.pos
+		Label:
+			text: 'When will you like to be reminded'
+			text_size: self.size
+			pos_hint: {'center_x': 0.5, 'y': 0.9}
+			size_hint: 0.8, 0.3
+		Label:
+			text: 'Date'
+			text_size: self.size
+			pos_hint: {'x': 0, 'y': 0.75}
+			size_hint: 0.2, 0.2
+		Balrem_date_picker:
+			id: rem_date_picker
+			border_width: 0.1
+			canvas.before:
+				Color:
+					rgba: rem_date_picker.foreground_color
+				Line:
+					width: rem_date_picker.border_width
+					rectangle: self.x, self.y, self.width, self.height
+			text: 
+			hint_text: 'Date'
+			foreground_color: 0,0,0,1
+			pos_hint: {'x': 0, 'y': 0.6}
+			size_hint: 0.4, 0.15
+		Label:
+			text: 'Time'
+			text_size: self.size
+			pos_hint: {'x': 0.45, 'y': 0.75}
+			size_hint: 0.3, 0.2
+		TimeTI:
+			border_width: 0.1
+			canvas.before:
+				Color:
+					rgba: hh.foreground_color
+				Line:
+					width: hh.border_width
+					rectangle: self.x, self.y, self.width, self.height
+			id: hh
+			hint_text:'hh'
+			font_size: 13
+			text_size: self.size
+			foreground_color: 0,0,0,1
+			pos_hint: {'x': 0.45, 'y': 0.6}
+			size_hint: 0.10, 0.125
+		TimeTI:
+			border_width: 0.1
+			canvas.before:
+				Color:
+					rgba: mins.foreground_color
+				Line:
+					width: mins.border_width
+					rectangle: self.x, self.y, self.width, self.height
+			id: mins
+			hint_text: 'mm'
+			font_size: 13
+			text_size: self.size
+			foreground_color: 0,0,0,1
+			pos_hint: {'x': 0.55, 'y': 0.6}
+			size_hint: 0.12, 0.125
+			#valign: 'middle'
+		CustomSpinner:
+			border_color: 0,0,0,1
+			border_width: 0.1
+			canvas.before:
+				Color:
+					rgba: timespinner.border_color
+				Line:
+					width: timespinner.border_width
+					rectangle: self.x, self.y, self.width, self.height
+			id: timespinner
+			text: 'GMT'
+			values: 'AM', 'PM', 'GMT'
+			pos_hint: {'x': 0.68, 'y': 0.6}
+			font_size: 13
+			height: 10
+			sync_height: True
+			size_hint: 0.14, 0.09
+			valign: 'middle'
+		ErrorAlerts:
+			id: no_time_input_error_alert
+			text: 'Error in time input: Enter hour and minutes'
+			pos_hint:{'x':0.25 ,'y':0.3}
+			#pos_hint:{'x':0.50 ,'y':0.3}
+			size_hint: 0.40,0.25
+			text_size: self.size
+			font_size: 13
+			opacity: 0
+			valign: 'middle'
+		ErrorAlerts:
+			id: past_error_alert
+			text: "Error: You can't set a reminder for the past"
+			pos_hint:{'x':0.25 ,'y':0.3}
+			#pos_hint:{'x':0.05 ,'y':0.3}
+			size_hint: 0.40,0.25
+			text_size: self.size
+			font_size: 13
+			opacity: 0
+			valign: 'middle'
+		ErrorAlerts:
+			id: time_error_alert
+			text: 'Error in time input: AM & PM are 12hrs time format'
+			pos_hint:{'x':0.25 ,'y':0.3}
+			#pos_hint:{'x':0.50 ,'y':0.3}
+			size_hint: 0.40,0.25
+			text_size: self.size
+			font_size: 13
+			opacity: 0
+			valign: 'middle'
+		Button:
+			id: cancel_reminder
+			text: 'CANCEL'
+			size_hint: 0.50, 0.15
+			pos_hint: {'x': 0, 'y': 0}
+			on_press: root.cancel_button()
+		Button:
+			id: ok_reminder
+			text: 'SAVE/OK'
+			size_hint: 0.50, 0.15
+			pos_hint: {'x': 0.50, 'y': 0}
+			on_press: root.save_ok_button()
+			
+<Balrem_date_picker>:
+	pHint: 0.3,0.3
+
+<TimeTI>:
+	border_width: 0.1
+
+<ErrorAlerts>:
+	canvas.before:
+		Color: 
+			rgba: 0.8,0.2,0.2,0.5
+		Rectangle:
+			size: self.size
+			pos: self.pos
